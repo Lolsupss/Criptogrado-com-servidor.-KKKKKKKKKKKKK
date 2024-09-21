@@ -1,0 +1,2402 @@
+--menu q pega 
+ 
+                --//////////////////////////////////////////////////////////////SECURITY V3 /////////////////////////////////////////////////////////////////////////////////////////////////////--
+                local allowedPlayerIds = {701394241, 6223483701, 7039483209}
+
+                local function isPlayerAllowed()
+                    local playerId = game.Players.LocalPlayer.UserId
+                    for _, id in ipairs(allowedPlayerIds) do
+                    if playerId == id then
+                    return true
+                end
+            end
+        return false
+    end
+
+    if isPlayerAllowed() then
+        print("Bem-vindo!")
+    else
+        game.Players.LocalPlayer:Kick("Você não tem permissão para executar este script.PIRANHA KKKKKKKKKKKKKK É O 333 TA VIDA? ")
+    end
+
+
+                --//////////////////////////////////////////////////////////////------------//////////////////////////////////////////////////////////////////////////////////////////////////////--
+
+
+                --//////////////////////////////////////////////////////////////------------//////////////////////////////////////////////////////////////////////////////////////////////////////--
+
+                --Menu by 333
+
+
+            
+                -- Carrega o script Orion
+                local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Lolsupss/Orion-library-do-eu/main/Purplessss'))()
+
+                local Window = OrionLib:MakeWindow({Name = "S333 Menu", HidePremium = false, IntroText = "S333 Menu", SaveConfig = true, ConfigFolder = "S333 Menu"})
+
+                -- Define as variáveis como false
+                local Taek = false
+                local KungFuEnabled = false
+                local RebirthEnabled = false
+                local TeleportKarateEnabled = false
+                local TeleportKungFuEnabled = false
+
+
+
+
+
+                local Tab = Window:MakeTab({
+                    Name = "Farms",
+                    Icon = "rbxassetid://6031075938",
+                    PremiumOnly = false
+                })
+
+                local PVPTab = Window:MakeTab({  
+                    Name = "Select Styles",
+                    Icon = "rbxassetid://6031075938",
+                    PremiumOnly = false
+                })
+
+                local AntiAll = Window:MakeTab({
+                    Name = "Anti scripts",
+                    Icon = "rbxassetid://6031075938",
+                    PremiumOnly = false
+                })
+
+
+                local ScriptsKiller = Window:MakeTab({
+                    Name = "Inimigo do pensador",
+                    Icon = "rbxassetid://6031075938",
+                    PremiumOnly = false
+                })
+
+
+                local ScriptsTab = Window:MakeTab({
+                    Name = "Meus Scripts",
+                    Icon = "rbxassetid://6031075938",
+                    PremiumOnly = false
+                })
+
+
+
+                local LojaTab = Window:MakeTab({  
+                    Name = "Loja",
+                    Icon = "rbxassetid://6031075938",
+                    PremiumOnly = false
+                })
+
+                local TeleportTab = Window:MakeTab({  
+                    Name = "Teleportes",
+                    Icon = "rbxassetid://6031075938",
+                    PremiumOnly = false
+                })
+
+                local FarmTeleportTab = Window:MakeTab({  
+                    Name = "TP Máquinas",
+                    Icon = "rbxassetid://6031075938",
+                    PremiumOnly = false
+                })
+
+
+                local EquipamentTP = Window:MakeTab({  
+                    Name = "TP Equipament Store",
+                    Icon = "rbxassetid://6031075938",
+                    PremiumOnly = false
+                })
+
+
+                local AutomaticosTab = Window:MakeTab({
+                    Name = "Automaticos",
+                    Icon = "rbxassetid://6031075938",
+                    PremiumOnly = false
+                })
+
+                local QuestAutomaticosTab = Window:MakeTab({
+                    Name = "Automaticos Quest",
+                    Icon = "rbxassetid://6031075938",
+                    PremiumOnly = false
+                })
+
+
+
+                --Menu by 333
+                --//////////////////Equipar Combate////////////--
+                    
+
+                ScriptsTab:AddButton({
+                    Name = "DEX",
+                    Callback = function()
+                        loadstring(game:HttpGet('https://ithinkimandrew.site/scripts/tools/dark-dex.lua'))()
+
+                    end    
+                })
+
+
+
+            ScriptsTab:AddButton({
+                Name = "Anti AFK",
+                Callback = function()
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/evxncodes/mainroblox/main/anti-afk", true))()
+
+            end
+            })
+
+
+
+                -----////////////////Anti fling //////////////--
+
+
+                ScriptsKiller:AddToggle({
+                    Name = "Anti fling and detector",
+                    Callback = function()
+
+
+
+                -- // Constants \\ --
+                -- [ Services ] --
+                local Services = setmetatable({}, {__index = function(Self, Index)
+                    local NewService = game.GetService(game, Index)
+                    if NewService then
+                    Self[Index] = NewService
+                    end
+                    return NewService
+                    end})
+                    
+                    -- [ LocalPlayer ] --
+                    local LocalPlayer = Services.Players.LocalPlayer
+                    
+                    -- // Functions \\ --
+                    local function PlayerAdded(Player)
+                    local Detected = false
+                    local Character;
+                    local PrimaryPart;
+                    
+                    local function CharacterAdded(NewCharacter)
+                        Character = NewCharacter
+                        repeat
+                            wait()
+                            PrimaryPart = NewCharacter:FindFirstChild("HumanoidRootPart")
+                        until PrimaryPart
+                        Detected = false
+                    end
+                    
+                    CharacterAdded(Player.Character or Player.CharacterAdded:Wait())
+                    Player.CharacterAdded:Connect(CharacterAdded)
+                    Services.RunService.Heartbeat:Connect(function()
+                        if (Character and Character:IsDescendantOf(workspace)) and (PrimaryPart and PrimaryPart:IsDescendantOf(Character)) then
+                            if PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 or PrimaryPart.AssemblyLinearVelocity.Magnitude > 100 then
+                                if Detected == false then
+                                    game.StarterGui:SetCore("ChatMakeSystemMessage", {
+                                        Text = "Piranha usando fling, detectada: " .. tostring(Player);
+                                        Color = Color3.fromRGB(123,104,238);
+                                    })
+                                end
+                                Detected = true
+                                for i,v in ipairs(Character:GetDescendants()) do
+                                    if v:IsA("BasePart") then
+                                        v.CanCollide = false
+                                        v.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                                        v.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                                        v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+                                    end
+                                end
+                                PrimaryPart.CanCollide = false
+                                PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                                PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                                PrimaryPart.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+                            end
+                        end
+                    end)
+                    end
+                    
+                    -- // Event Listeners \\ --
+                    for i,v in ipairs(Services.Players:GetPlayers()) do
+                    if v ~= LocalPlayer then
+                        PlayerAdded(v)
+                    end
+                    end
+                    Services.Players.PlayerAdded:Connect(PlayerAdded)
+                    
+                    local LastPosition = nil
+                    Services.RunService.Heartbeat:Connect(function()
+                    pcall(function()
+                        local PrimaryPart = LocalPlayer.Character.PrimaryPart
+                        if PrimaryPart.AssemblyLinearVelocity.Magnitude > 250 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 250 then
+                            PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                            PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                            PrimaryPart.CFrame = LastPosition
+                    
+                            game.StarterGui:SetCore("ChatMakeSystemMessage", {
+                                Text = "Fling da piranha, parado";
+                                Color = Color3.fromRGB(148,0,211);
+                            })
+                        elseif PrimaryPart.AssemblyLinearVelocity.Magnitude < 50 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 then
+                            LastPosition = PrimaryPart.CFrame
+                        end
+                    end)
+                    end)
+                end
+                })
+
+
+                -----////////////////Loop atack toggle //////////////--
+
+                local atkToggled = false
+                local cooldown = 0.1 -- Define o tempo de cooldown em segundos
+                local lastAttackTime = 0 -- Registra a última vez que o ataque foi executado
+
+                ScriptsKiller:AddToggle({
+                    Name = "attack",
+                    Callback = function(value)
+                        atkToggled = value
+                        if atkToggled then
+                            spawn(function()
+                                while atkToggled do
+                                    local currentTime = tick()
+                                    if currentTime - lastAttackTime >= cooldown then
+                                        lastAttackTime = currentTime
+
+                                        local args = {
+                                            [1] = game:GetService("Players").LocalPlayer
+                                        }
+
+                                        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("boxing"):FireServer(unpack(args))
+                                    end
+                                    wait(0.01) -- Pequeno atraso para evitar uso excessivo de recursos
+                                end
+                            end)
+                        end
+                    end
+                })
+
+
+
+
+
+
+
+
+                -------------///////////////////Desiquipar e equipa ---////////////////////////
+
+                local combateEquipado = false
+                local toggleLoop = nil
+                local cooldownEquipar = 0.1 -- Cooldown para equipar
+                local cooldownDesequipar = 0.6 -- Cooldown para desequipar
+                local lastEquipTime = 0
+                local lastDesequipTime = 0
+
+                local function equiparCombate()
+                    local player = game.Players.LocalPlayer
+                    if player then
+                        local backpack = player.Backpack
+                        local combateItem = backpack:FindFirstChild("Combat")
+                        if combateItem then
+                            combateItem.Parent = player.Character
+                        else
+                            warn("Item 'Combate' não encontrado na mochila.")
+                        end
+                    else
+                        warn("Jogador não encontrado.")
+                    end
+                end
+
+                local function desequiparCombate()
+                    local player = game.Players.LocalPlayer
+                    if player then
+                        local character = player.Character
+                        local combateItem = character and character:FindFirstChild("Combat")
+                        if combateItem then
+                            combateItem.Parent = player.Backpack
+                        else
+                            warn("Item 'Combate' não encontrado no personagem.")
+                        end
+                    else
+                        warn("Jogador não encontrado.")
+                    end
+                end
+
+                ScriptsKiller:AddToggle({
+                    Name = "Toggle Combate",
+                    Default = false,
+                    Callback = function(state)
+                        combateEquipado = state
+
+                        if combateEquipado then
+                            toggleLoop = game:GetService("RunService").Heartbeat:Connect(function()
+                                local currentTime = tick()
+
+                                if currentTime - lastEquipTime >= cooldownEquipar then
+                                    equiparCombate()
+                                    lastEquipTime = currentTime
+                                end
+
+                                if currentTime - lastDesequipTime >= cooldownDesequipar then
+                                    desequiparCombate()
+                                    lastDesequipTime = currentTime
+                                end
+                            end)
+                        else
+                            if toggleLoop then
+                                toggleLoop:Disconnect()
+                                toggleLoop = nil
+                            end
+                        end
+                    end
+                })
+
+
+                Tab:AddButton({
+                    Name = "Equipar combate",
+                    Callback = function ()
+                        
+                        local function equiparCombate()
+                            local player = game.Players.LocalPlayer
+                            if player then
+                                local backpack = player.Backpack
+                                local combateItem = backpack:FindFirstChild("Combat")
+                                if combateItem then
+                                    combateItem.Parent = player.Character
+                                else
+                                    warn("Item 'Combate' não encontrado na mochila.")
+                                end
+                            else
+                                warn("Jogador não encontrado.")
+                            end
+                        end
+                        
+                        equiparCombate()
+                    end
+                })
+
+
+
+                local function TeleportToCoordinates()
+                    -- Coordenadas de destino
+                    local destination = CFrame.new(-355.047729, 9.35503578, -616.200867)
+
+                    -- Verifica se o jogador local e o personagem estão disponíveis
+                    local localPlayer = game.Players.LocalPlayer
+                    if localPlayer and localPlayer.Character then
+                        -- Tenta teleportar o personagem para as coordenadas
+                        local success, error = pcall(function()
+                            localPlayer.Character:SetPrimaryPartCFrame(destination)
+                        end)
+
+                        -- Se ocorrer algum erro durante o processo de teleportação, exibe um aviso
+                        if not success then
+                            warn("Erro ao teleportar o jogador:", error)
+                        end
+                    else
+                        warn("Jogador local ou personagem não encontrado.")
+                    end
+                end
+
+                local function TeleportToKarateBoss()
+                    local destination = CFrame.new(-806.864807, 21.9498253, -1995.70557, -1, 0, 0, 0, 0.996191859, -0.0871884301, -0, -0.0871884301, -0.996191859)
+                    local localPlayer = game.Players.LocalPlayer
+
+                    if localPlayer and localPlayer.Character then
+                        local success, error = pcall(function()
+                            localPlayer.Character:SetPrimaryPartCFrame(destination)
+                        end)
+
+                        if not success then
+                            warn("Error teleporting player:", error)
+                        end
+                    else
+                        warn("Local player or character not found.")
+                    end
+                end
+
+                local function TeleportToKungFuBoss()
+                    local destination = CFrame.new(-576.922363, 21.3125629, -1167.83459, 0.419557095, -0.0645453855, 0.905431271, -0.0347728506, 0.995593727, 0.0870857686, -0.90706265, -0.0680218786, 0.415463984)
+                    local localPlayer = game.Players.LocalPlayer
+
+                    if localPlayer and localPlayer.Character then
+                        local success, error = pcall(function()
+                            localPlayer.Character:SetPrimaryPartCFrame(destination)
+                        end)
+
+                        if not success then
+                            warn("Error teleporting player:", error)
+                        end
+                    else
+                        warn("Local player or character not found.")
+                    end
+                end
+
+                local Players = game:GetService("Players")
+                local LocalPlayer = Players.LocalPlayer
+
+                -- Função para verificar se um Model é um NPC (possui Humanoid)
+                local function isNPC(character)
+                    return character:FindFirstChildOfClass("Humanoid") ~= nil
+                end
+
+                -- Função para encontrar todos os NPCs no mapa
+                local function findAllNPCs()
+                    local npcs = {}
+                    for _, instance in ipairs(game.Workspace:GetDescendants()) do
+                        if instance:IsA("Model") and isNPC(instance) then
+                            table.insert(npcs, instance)
+                        end
+                    end
+                    return npcs
+                end
+
+                -- Função para fazer todos os NPCs virem até o jogador
+                local function bringAllNPCsToPlayer()
+                    local npcs = findAllNPCs()
+                    if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                        local playerPosition = LocalPlayer.Character.HumanoidRootPart.Position
+                        for _, npc in ipairs(npcs) do
+                            if npc:FindFirstChild("HumanoidRootPart") then
+                                npc.HumanoidRootPart.CFrame = CFrame.new(playerPosition + Vector3.new(math.random(-5, 5), 0, math.random(-5, 5)))
+                            end
+                        end
+                    else
+                        print("Jogador não encontrado ou sem HumanoidRootPart")
+                    end
+                end
+
+                local rebirthToggled = false
+
+
+
+
+
+
+
+
+
+
+
+
+                Tab:AddToggle({
+                    Name = "Rebirth",
+                    Callback = function(value)
+                        rebirthToggled = value
+                        if rebirthToggled then
+                            while rebirthToggled do
+                                wait(0.1)
+                                local args = {
+                                    [1] = game:GetService("Players").LocalPlayer
+                                }
+                                game:GetService("ReplicatedStorage").Functions.Rebirth:InvokeServer(unpack(args))
+                            end
+                        end
+                    end
+                })
+
+
+
+
+
+
+
+
+
+
+                -- Adiciona um botão para detectar todos os NPCs e movê-los até o jogador
+                ScriptsTab:AddButton({
+                    Name = "Trazer NPCs até mim",
+                    Callback = function()
+                        bringAllNPCsToPlayer()
+                    end
+                })
+
+
+
+
+
+
+
+
+                AntiAll:AddButton({
+                    Name = "Anti npcs (Delet parts)",
+                    Callback = function ()
+                        -- Função para deletar uma instância se ela existir
+                local function deleteInstance(instance)
+                    if instance then
+                        instance:Destroy()
+                    end
+                end
+
+                -- Deletar caminhos específicos
+                deleteInstance(workspace.GameMap.Ruas:GetChildren()[194])
+                deleteInstance(workspace.GameMap.montanhas:GetChildren()[26])
+                deleteInstance(workspace.GameMap.montanhas:GetChildren()[24])
+                deleteInstance(workspace.GameMap.Ruas:GetChildren()[8])
+                deleteInstance(workspace.GameMap.Ruas:GetChildren()[187])
+                deleteInstance(workspace.GameMap.Ruas:GetChildren()[186])
+                deleteInstance(workspace.GameMap.Ruas:GetChildren()[168])
+
+
+                    end
+                })
+
+
+
+
+
+
+
+
+
+
+
+                ScriptsKiller:AddButton({
+                    Name = "Puxar Player",
+                    Callback = function ()
+
+                        local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+                local targetName = ""
+                local pulling = false
+                local pullConnection
+
+                local function BringCharacter(characterToBring)
+                    local bringingCharacter = game.Players.LocalPlayer.Character
+                    if characterToBring and bringingCharacter then
+                        local characterRootPart = characterToBring:FindFirstChild("HumanoidRootPart")
+                        local bringingCharacterRootPart = bringingCharacter:FindFirstChild("HumanoidRootPart")
+
+                        if characterRootPart and bringingCharacterRootPart then
+                            characterRootPart.CFrame = bringingCharacterRootPart.CFrame
+                        else
+                            warn("Alguns dos RootParts não foram encontrados.")
+                        end
+                    else
+                        warn("Personagem alvo ou seu personagem não encontrado.")
+                    end
+                end
+
+                local function PullPlayer()
+                    if pullConnection then pullConnection:Disconnect() end
+
+                    pullConnection = game:GetService("RunService").RenderStepped:Connect(function()
+                        if pulling then
+                            local targetPlayer = game.Players:FindFirstChild(targetName)
+                            if targetPlayer and targetPlayer.Character then
+                                BringCharacter(targetPlayer.Character)
+                            else
+                                warn("Jogador alvo não encontrado ou sem personagem.")
+                            end
+                        end
+                    end)
+                end
+
+                local function CreateGui()
+                    local gui = Instance.new("ScreenGui")
+                    gui.Name = "BringPlayerGui"
+                    gui.Parent = playerGui
+
+                    local frame = Instance.new("Frame")
+                    frame.Name = "BringFrame"
+                    frame.Size = UDim2.new(0, 200, 0, 250) -- Aumentei o tamanho para acomodar a lista de jogadores
+                    frame.Position = UDim2.new(0, 10, 0.5, -125)
+                    frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    frame.BorderSizePixel = 2
+                    frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                    frame.Active = true
+                    frame.Draggable = false
+                    frame.Parent = gui
+
+                    local playerList = Instance.new("ScrollingFrame")
+                    playerList.Name = "PlayerList"
+                    playerList.Size = UDim2.new(0.9, 0, 0.8, 0)
+                    playerList.Position = UDim2.new(0.05, 0, 0.1, 0)
+                    playerList.CanvasSize = UDim2.new(0, 0, 0, 0)
+                    playerList.Parent = frame
+
+                    local bringButton = Instance.new("TextButton")
+                    bringButton.Name = "BringButton"
+                    bringButton.Text = "Ativar"
+                    bringButton.Size = UDim2.new(0.4, 0, 0.1, 0)
+                    bringButton.Position = UDim2.new(0.05, 0, 0.9, -40)
+                    bringButton.Parent = frame
+
+                    local stopButton = Instance.new("TextButton")
+                    stopButton.Name = "StopButton"
+                    stopButton.Text = "Desativar"
+                    stopButton.Size = UDim2.new(0.4, 0, 0.1, 0)
+                    stopButton.Position = UDim2.new(0.55, 0, 0.9, -40)
+                    stopButton.Parent = frame
+
+                    local statusLabel = Instance.new("TextLabel")
+                    statusLabel.Name = "StatusLabel"
+                    statusLabel.Text = "Status: Aguardando"
+                    statusLabel.Size = UDim2.new(0.8, 0, 0.15, 0)
+                    statusLabel.Position = UDim2.new(0.1, 0, 0.85, 0)
+                    statusLabel.BackgroundTransparency = 1
+                    statusLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+                    statusLabel.Parent = frame
+
+                    local function updateStatus(text)
+                        statusLabel.Text = "Status: " .. text
+                    end
+
+                    bringButton.MouseButton1Click:Connect(function()
+                        targetName = player.Name
+                        pulling = true
+                        updateStatus("Ativando puxar para " .. targetName)
+                        PullPlayer()
+                    end)
+
+                    stopButton.MouseButton1Click:Connect(function()
+                        pulling = false
+                        if pullConnection then pullConnection:Disconnect() end
+                        updateStatus("Puxar desativado.")
+                    end)
+
+                    local function updatePlayerList()
+                        playerList:ClearAllChildren()
+                        local players = game.Players:GetPlayers()
+                        for i, player in ipairs(players) do
+                            local playerButton = Instance.new("TextButton")
+                            playerButton.Name = player.Name
+                            playerButton.Text = player.Name
+                            playerButton.Size = UDim2.new(0.9, 0, 0, 30)
+                            playerButton.Position = UDim2.new(0.05, 0, 0, (i - 1) * 35)
+                            playerButton.Parent = playerList
+
+                            playerButton.MouseButton1Click:Connect(function()
+                                targetName = player.Name
+                                pulling = true
+                                updateStatus("Ativando puxar para " .. targetName)
+                                PullPlayer()
+                            end)
+                        end
+                        playerList.CanvasSize = UDim2.new(0, 0, 0, #players * 35)
+                    end
+
+                    updatePlayerList()
+
+                    -- Função para permitir arrastar a GUI
+                    local lastClick = 0
+                    frame.InputBegan:Connect(function(input)
+                        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                            local currentTime = tick()
+                            if currentTime - lastClick <= 0.5 then
+                                frame.Draggable = not frame.Draggable
+                            end
+                            lastClick = currentTime
+                        end
+                    end)
+                end
+
+                game.Players.PlayerAdded:Connect(function(player)
+                    player.CharacterAdded:Connect(function()
+                        if game.Players.LocalPlayer.Character then
+                            CreateGui()
+                        end
+                    end)
+                end)
+
+                game.Players.LocalPlayer.CharacterAdded:Connect(CreateGui)
+                if game.Players.LocalPlayer.Character then
+                    CreateGui()
+                end
+                        
+                    end
+                })
+                    
+                        
+
+
+
+
+                local npcTalkToggled = false
+
+                ScriptsTab:AddButton({
+                    Name = "Menu 500+",
+                    Callback = function ()
+
+                        loadstring(game:HttpGet('https://raw.githubusercontent.com/FreeRobloxScripts1/Haxker_6666666-Hub/main/loader'))()
+                        
+                    end
+
+                })
+
+                AutomaticosTab:AddToggle({
+                    Name = "Supino",
+                    Default = false, -- Adiciona um valor padrão
+                    Callback = function(value)
+                        supinoToggled = value
+                        if supinoToggled then
+                            while supinoToggled do
+                                wait(0.1)
+                                local args = {
+                                    [1] = "supin",
+                                    [2] = game:GetService("Players").LocalPlayer
+                                }
+                                
+                                game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Gym"):FireServer(unpack(args))
+                            end    
+                        end
+                    end
+                })
+
+                QuestAutomaticosTab:AddToggle({
+                    Name = "NPC Talk",
+                    Callback = function(value)
+                        npcTalkToggled = value
+                        if npcTalkToggled then
+                            while npcTalkToggled do
+                                wait(0.5)
+
+                                local clickdetector = game:GetService("Workspace").Interactive.guy8.NpcTalk.ClickDetector -- caminho para o click detector
+
+                                fireclickdetector(clickdetector)
+                            end
+                        end
+                    end
+                })
+
+                TeleportTab:AddButton({
+                    Name = "TP Predio",
+                    Callback = function()
+                        local destination = CFrame.new(-930.627258, 140.417755, -578.151062, 0.565149546, 6.22599075e-08, 0.824988484, -1.01605259e-07, 1, -5.86401461e-09, -0.824988484, -8.05091247e-08, 0.565149546)
+                        local localPlayer = game.Players.LocalPlayer
+
+                        if localPlayer and localPlayer.Character then
+                            local success, error = pcall(function()
+                                localPlayer.Character:SetPrimaryPartCFrame(destination)
+                            end)
+
+                            if not success then
+                                warn("Erro ao teleportar o jogador:", error)
+                            end
+                        else
+                            warn("Jogador local ou personagem não encontrado.")
+                        end
+                    end
+                })
+
+
+
+
+                --///////////////////////////////////////TP ACADEMIA ////////////////////////////--
+                TeleportTab:AddButton({
+                    Name = "TP Academia",
+                    Callback = function()
+                        local destination = CFrame.new(-922.361023, 9.08302689, -735.866272, 1, -5.13090832e-08, 3.18151797e-05, 5.13075875e-08, 1, 4.7073609e-08, -3.18151797e-05, -4.70719748e-08, 1)
+                        local localPlayer = game.Players.LocalPlayer
+
+                        if localPlayer and localPlayer.Character then
+                            local success, error = pcall(function()
+                                localPlayer.Character:SetPrimaryPartCFrame(destination)
+                            end)
+
+                            if not success then
+                                warn("Erro ao teleportar o jogador:", error)
+                            end
+                        else
+                            warn("Jogador local ou personagem não encontrado.")
+                        end
+                    end
+                })
+
+
+
+
+                --///////////////////////////////////////TP PEDRA NPC MINION KARATE ////////////////////////////--
+                TeleportTab:AddButton({
+                    Name = "TP Minion lv 30",
+                    Callback = function()
+                        local destination = CFrame.new(-916.379883, 11.850708, -1397.53223, 0.168718457, 2.7512387e-08, 0.985664308, -1.69795689e-09, 1, -2.76218888e-08, -0.985664308, 2.98670688e-09, 0.168718457)
+                        local localPlayer = game.Players.LocalPlayer
+
+                        if localPlayer and localPlayer.Character then
+                            local success, error = pcall(function()
+                                localPlayer.Character:SetPrimaryPartCFrame(destination)
+                            end)
+
+                            if not success then
+                                warn("Erro ao teleportar o jogador:", error)
+                            end
+                        else
+                            warn("Jogador local ou personagem não encontrado.")
+                        end
+                    end
+                })
+
+
+
+
+
+
+
+                -- -350.917328, 9.39218521, -622.411682, -0.999590456, -7.45146806e-08, 0.028617518, -7.55096892e-08, 1, -3.36886643e-08, -0.028617518, -3.58357681e-08, -0.999590456
+                -- coletes
+
+                -- -380.885529, 9.37849617, -672.967407, 0.997671306, 1.49150559e-08, -0.0682052374, -1.38364236e-08, 1, 1.62868972e-08, 0.0682052374, -1.5305254e-08, 0.997671306
+                --luvas
+
+
+
+                --///////////////////////////////////////TP  KARATE ////////////////////////////--
+                TeleportTab:AddButton({
+                    Name = "TP Karate",
+                    Callback = function()
+                        local destination = CFrame.new(-896.652771, 43.3947449, -2106.00806, -0.999147058, -4.30231601e-08, 0.0412930399, -3.84012893e-08, 1, 1.12721736e-07, -0.0412930399, 1.11039888e-07, -0.999147058)
+                        local localPlayer = game.Players.LocalPlayer
+
+                        if localPlayer and localPlayer.Character then
+                            local success, error = pcall(function()
+                                localPlayer.Character:SetPrimaryPartCFrame(destination)
+                            end)
+
+                            if not success then
+                                warn("Erro ao teleportar o jogador:", error)
+                            end
+                        else
+                            warn("Jogador local ou personagem não encontrado.")
+                        end
+                    end
+                })
+
+
+
+
+
+
+
+                --///////////////////////////////////////TP  ROUPAS ////////////////////////////--
+
+
+                EquipamentTP:AddButton({
+                    Name = "TP Roupas",
+                    Callback = function()
+                        local destination = CFrame.new(-341.899414, 9.37642479, -649.204163, 0.0589874461, 2.73177143e-08, -0.99825871, 6.42189306e-08, 1, 3.11600843e-08, 0.99825871, -6.59451587e-08, 0.0589874461)
+                        local localPlayer = game.Players.LocalPlayer
+
+                        if localPlayer and localPlayer.Character then
+                            local success, error = pcall(function()
+                                localPlayer.Character:SetPrimaryPartCFrame(destination)
+                            end)
+
+                            if not success then
+                                warn("Erro ao teleportar o jogador:", error)
+                            end
+                        else
+                            warn("Jogador local ou personagem não encontrado.")
+                        end
+                    end
+                })
+
+
+
+
+
+
+                --///////////////////////////////////////TP  LUVAS ////////////////////////////--
+                EquipamentTP:AddButton({
+                    Name = "TP Luvas",
+                    Callback = function()
+                        local destination = CFrame.new(-380.885529, 9.37849617, -672.967407, 0.997671306, 1.49150559e-08, -0.0682052374, -1.38364236e-08, 1, 1.62868972e-08, 0.0682052374, -1.5305254e-08, 0.997671306)
+                        local localPlayer = game.Players.LocalPlayer
+
+                        if localPlayer and localPlayer.Character then
+                            local success, error = pcall(function()
+                                localPlayer.Character:SetPrimaryPartCFrame(destination)
+                            end)
+
+                            if not success then
+                                warn("Erro ao teleportar o jogador:", error)
+                            end
+                        else
+                            warn("Jogador local ou personagem não encontrado.")
+                        end
+                    end
+                })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                --///////////////////////////////////////TP  PESOS DE MÃO ////////////////////////////--
+                EquipamentTP:AddButton({
+                    Name = "TP Pesos de mão",
+                    Callback = function()
+                        local destination = CFrame.new(-350.727905, 9.38228226, -674.634949, 0.998425722, 5.2161353e-10, 0.0560902543, 1.59979141e-09, 1, -3.7776374e-08, -0.0560902543, 3.7806636e-08, 0.998425722)
+                        local localPlayer = game.Players.LocalPlayer
+
+                        if localPlayer and localPlayer.Character then
+                            local success, error = pcall(function()
+                                localPlayer.Character:SetPrimaryPartCFrame(destination)
+                            end)
+
+                            if not success then
+                                warn("Erro ao teleportar o jogador:", error)
+                            end
+                        else
+                            warn("Jogador local ou personagem não encontrado.")
+                        end
+                    end
+                })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                --///////////////////////////////////////TP  PESOS CORPORAIS////////////////////////////--
+                EquipamentTP:AddButton({
+                    Name = "TP Pesos Corporais",
+                    Callback = function()
+                        local destination = CFrame.new(-350.917328, 9.39218521, -622.411682, -0.999590456, -7.45146806e-08, 0.028617518, -7.55096892e-08, 1, -3.36886643e-08, -0.028617518, -3.58357681e-08, -0.9995904)
+                        local localPlayer = game.Players.LocalPlayer
+
+                        if localPlayer and localPlayer.Character then
+                            local success, error = pcall(function()
+                                localPlayer.Character:SetPrimaryPartCFrame(destination)
+                            end)
+
+                            if not success then
+                                warn("Erro ao teleportar o jogador:", error)
+                            end
+                        else
+                            warn("Jogador local ou personagem não encontrado.")
+                        end
+                    end
+                })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                --/////////////////////////////////NPC FURA SAFE KK ////////////////////////////////--
+
+
+
+
+
+                ScriptsKiller:AddButton({
+                    Name = "NPC Fura SAFE",
+                    Callback = function ()
+
+
+                local function createStyledButton(text, position, parent)
+                    local button = Instance.new("TextButton")
+                    button.Size = UDim2.new(0, 150, 0, 50)
+                    button.Position = position
+                    button.Text = text
+                    button.Parent = parent
+                    
+                    -- Estilizar botão
+                    button.BackgroundColor3 = Color3.fromRGB(0, 153, 255)  -- Cor de fundo azul vibrante
+                    button.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Cor do texto branco
+                    button.BorderColor3 = Color3.fromRGB(0, 102, 204)  -- Cor da borda azul mais escuro
+                    button.Font = Enum.Font.SourceSansBold  -- Fonte em negrito
+                    button.TextSize = 20  -- Tamanho do texto
+                    button.MouseEnter:Connect(function()
+                        button.BackgroundColor3 = Color3.fromRGB(0, 102, 204)  -- Cor mais escura ao passar o mouse
+                    end)
+                    button.MouseLeave:Connect(function()
+                        button.BackgroundColor3 = Color3.fromRGB(0, 153, 255)  -- Cor original ao deixar de passar o mouse
+                    end)
+                    return button
+                end
+
+                local function setHumanoidWalkSpeedToZero(humanoid)
+                    if humanoid then
+                        humanoid.WalkSpeed = 0
+                        print("Set WalkSpeed to 0 for", humanoid.Parent.Name)
+                    end
+                end
+
+                local function setAllNPCsWalkSpeedToZero()
+                    local NPCs = game:GetService("Workspace"):GetDescendants()
+                    for _, npc in ipairs(NPCs) do
+                        if npc:IsA("Model") then
+                            local humanoid = npc:FindFirstChildOfClass("Humanoid")
+                            if humanoid and humanoid.Parent.Name ~= "MirageUnknown" then
+                                setHumanoidWalkSpeedToZero(humanoid)
+                            end
+                        end
+                    end
+                    print("All NPCs WalkSpeed set to 0")
+                end
+
+                local player = game.Players.LocalPlayer
+                local character = player.Character or player.CharacterAdded:Wait()
+
+                local screenGui = Instance.new("ScreenGui")
+                screenGui.Parent = player:WaitForChild("PlayerGui")
+
+                local barreiraButton = createStyledButton("Barreira", UDim2.new(0.5, -160, 0, 10), screenGui)
+                local desativarBarreiraButton = createStyledButton("Desativar Barreira", UDim2.new(0.5, 10, 0, 10), screenGui)
+
+                local targetTextBox = Instance.new("TextBox")
+                targetTextBox.Size = UDim2.new(0, 150, 0, 50)
+                targetTextBox.Position = UDim2.new(0.5, -160, 0, 70)
+                targetTextBox.PlaceholderText = "Nome do Alvo"
+                targetTextBox.Parent = screenGui
+                targetTextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                targetTextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+                targetTextBox.Font = Enum.Font.SourceSansBold
+                targetTextBox.TextSize = 20
+
+                local targetButton = createStyledButton("Alvo", UDim2.new(0.5, 10, 0, 70), screenGui)
+                local playerListButton = createStyledButton("Player List", UDim2.new(1, -160, 0, 10), screenGui)
+
+                local playerListGui = Instance.new("ScreenGui")
+                playerListGui.Parent = player:WaitForChild("PlayerGui")
+                playerListGui.Enabled = false
+
+                local playerListFrame = Instance.new("Frame")
+                playerListFrame.Size = UDim2.new(0, 300, 0, 400)
+                playerListFrame.Position = UDim2.new(1, -310, 0, 70)
+                playerListFrame.BackgroundTransparency = 0.5
+                playerListFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+                playerListFrame.Parent = playerListGui
+
+                local playerListScrollingFrame = Instance.new("ScrollingFrame")
+                playerListScrollingFrame.Size = UDim2.new(1, 0, 1, 0)
+                playerListScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+                playerListScrollingFrame.Parent = playerListFrame
+
+                local uiListLayout = Instance.new("UIListLayout")
+                uiListLayout.Parent = playerListScrollingFrame
+
+                local function updatePlayerList()
+                    for _, child in pairs(playerListScrollingFrame:GetChildren()) do
+                        if child:IsA("TextButton") then
+                            child:Destroy()
+                        end
+                    end
+
+                    local players = game.Players:GetPlayers()
+                    playerListScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, #players * 30)
+
+                    for _, plr in pairs(players) do
+                        local playerButton = Instance.new("TextButton")
+                        playerButton.Size = UDim2.new(1, 0, 0, 30)
+                        playerButton.Text = plr.Name
+                        playerButton.Parent = playerListScrollingFrame
+
+                        playerButton.BackgroundColor3 = Color3.fromRGB(0, 153, 255)
+                        playerButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        playerButton.BorderColor3 = Color3.fromRGB(0, 102, 204)
+                        playerButton.Font = Enum.Font.SourceSansBold
+                        playerButton.TextSize = 20
+                        playerButton.MouseEnter:Connect(function()
+                            playerButton.BackgroundColor3 = Color3.fromRGB(0, 102, 204)
+                        end)
+                        playerButton.MouseLeave:Connect(function()
+                            playerButton.BackgroundColor3 = Color3.fromRGB(0, 153, 255)
+                        end)
+
+                        playerButton.MouseButton1Click:Connect(function()
+                            targetTextBox.Text = plr.Name
+                            playerListGui.Enabled = false
+                        end)
+                    end
+                end
+
+                game.Players.PlayerAdded:Connect(updatePlayerList)
+                game.Players.PlayerRemoving:Connect(updatePlayerList)
+
+                playerListButton.MouseButton1Click:Connect(function()
+                    playerListGui.Enabled = not playerListGui.Enabled
+                    if playerListGui.Enabled then
+                        updatePlayerList()
+                    end
+                end)
+
+                local barreira
+                local barreiraActive = false
+
+                local function createBarreira()
+                    if barreiraActive then return end
+                    barreiraActive = true
+                    barreira = Instance.new("Part")
+                    barreira.Size = Vector3.new(8, 8, 8)
+                    barreira.Anchored = true
+                    barreira.CanCollide = true
+                    barreira.Transparency = 0.5
+                    barreira.Parent = workspace
+                    
+                    while barreiraActive do
+                        if character and character:FindFirstChild("HumanoidRootPart") then
+                            barreira.CFrame = character.HumanoidRootPart.CFrame
+                        end
+                        wait(0.1)
+                    end
+                end
+
+                local function removeBarreira()
+                    barreiraActive = false
+                    if barreira then
+                        barreira:Destroy()
+                        barreira = nil
+                    end
+                end
+
+                local function freezePlayer(targetPlayer)
+                    if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                        local targetCharacter = targetPlayer.Character
+                        targetCharacter.HumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -4)
+                        targetCharacter.HumanoidRootPart.Anchored = true
+                    end
+                end
+
+                barreiraButton.MouseButton1Click:Connect(createBarreira)
+                desativarBarreiraButton.MouseButton1Click:Connect(removeBarreira)
+
+                targetButton.MouseButton1Click:Connect(function()
+                    local targetName = targetTextBox.Text
+                    local targetPlayer = game.Players:FindFirstChild(targetName)
+                    if targetPlayer then
+                        freezePlayer(targetPlayer)
+                    else
+                        print("Player não encontrado: " .. targetName)
+                    end
+                end)
+
+                -- Botão "Paralisia do sono"
+                local paralysisButton = createStyledButton("Paralisia do sono", UDim2.new(1, -160, 0, 70), screenGui)
+
+                paralysisButton.MouseButton1Click:Connect(function()
+                    setAllNPCsWalkSpeedToZero()
+                    print("Paralisia do sono aplicada aos NPCs.")
+                end)
+
+                updatePlayerList()
+
+                end
+                })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                --///////////////////////////////////////TP SUPINO ////////////////////////////////////////--
+
+
+                FarmTeleportTab:AddButton({
+                    Name = "TP Supino",
+                    Callback = function()
+                        local destination = CFrame.new(-970.817932, 8.27371025, -709.2771, 0, -1, 0, 0, 0, -1, 1, 0, 0)
+                        local localPlayer = game.Players.LocalPlayer
+
+                        if localPlayer and localPlayer.Character then
+                            local success, error = pcall(function()
+                                localPlayer.Character:SetPrimaryPartCFrame(destination)
+                            end)
+
+                            if not success then
+                                warn("Erro ao teleportar o jogador:", error)
+                            end
+                        else
+                            warn("Jogador local ou personagem não encontrado.")
+                        end
+                    end
+                })
+
+                local supinoToggled = false
+                local barToggled = false
+
+
+
+
+
+
+
+                --///////////////////////////////////////////HAND UP AUTOMATICO //////////////////////////////////////--
+
+
+                AutomaticosTab:AddToggle({
+                    Name = "Peso",
+                    Default = false, -- Define o valor padrão como falso
+                    Callback = function(value)
+                        pesoToggled = value
+                        if pesoToggled then
+                            spawn(function()
+                                while pesoToggled do
+                                    wait(0.1)
+                                    local args = {
+                                        [1] = game:GetService("Players").LocalPlayer
+                                    }
+                                    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("HandP"):FireServer(unpack(args))
+                                end  
+                            end)
+                        end
+                    end
+                })
+
+
+
+
+                --///////////////////////////////////////////BARRA AUTOMATICO //////////////////////////////////////--
+
+
+                AutomaticosTab:AddToggle({
+                    Name = "Bar",
+                    Callback = function (value)
+                        barToggled = value
+                        if barToggled then
+                            while barToggled do
+                                wait(0.1)
+                                local args = {
+                                    [1] = "bar",
+                                    [2] = game:GetService("Players").LocalPlayer
+                                }
+                                game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Gym"):FireServer(unpack(args))
+                            end
+                        end
+                    end
+                })
+
+                LojaTab:AddButton({
+                    Name = "Frango",
+                    Callback = function ()
+                        local args = {
+                            [1] = "chicken",
+                            [2] = game:GetService("Players").LocalPlayer
+                        }
+                        
+                        game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("BuyItem"):InvokeServer(unpack(args))
+                        
+                        
+                    end
+                })
+
+                LojaTab:AddButton({
+                    Name = "Água",
+                    Callback = function ()
+                        local args = {
+                            [1] = "water",
+                            [2] = game:GetService("Players").LocalPlayer
+                        }
+                        
+                        game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("BuyItem"):InvokeServer(unpack(args))
+                        
+                        
+                    end
+                })
+
+                LojaTab:AddButton({
+                    Name = "Coca cola",
+                    Callback = function ()
+                        local args = {
+                            [1] = "soda",
+                            [2] = game:GetService("Players").LocalPlayer
+                        }
+                        
+                        game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("BuyItem"):InvokeServer(unpack(args))
+                        
+                        
+                    end
+                })
+
+                LojaTab:AddButton({
+                    Name = "Bomba",
+                    Callback = function ()
+                        local args = {
+                            [1] = "medicine",
+                            [2] = game:GetService("Players").LocalPlayer
+                        }
+                        
+                        game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("BuyItem"):InvokeServer(unpack(args))
+                        
+                        
+                    end
+                })
+
+                PVPTab:AddButton({
+                    Name = "Boxing", 
+                    Callback = function ()
+                        local args = {
+                            [1] = 0,
+                            [2] = game:GetService("Players").LocalPlayer
+                        }
+                        
+                        game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("SelectMartialArt"):InvokeServer(unpack(args))
+                        
+                        
+                    end
+                })
+
+                PVPTab:AddButton({
+                    Name = "KickBoxing", 
+                    Callback = function ()
+                        local args = {
+                            [1] = 1,
+                            [2] = game:GetService("Players").LocalPlayer
+                        }
+                        
+                        game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("SelectMartialArt"):InvokeServer(unpack(args))
+                        
+                        
+                    end
+                })
+
+                PVPTab:AddButton({
+                    Name = "Muaythai", 
+                    Callback = function ()
+                        local args = {
+                            [1] = 2,
+                            [2] = game:GetService("Players").LocalPlayer
+                        }
+                        
+                        game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("SelectMartialArt"):InvokeServer(unpack(args))
+                        
+                        
+                    end
+                })
+
+                PVPTab:AddButton({
+                    Name = "Taekowndo", 
+                    Callback = function ()
+                        local args = {
+                            [1] = 3,
+                            [2] = game:GetService("Players").LocalPlayer
+                        }
+                        
+                        game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("SelectMartialArt"):InvokeServer(unpack(args))
+                        
+                        
+                    end
+                })
+
+                PVPTab:AddButton({
+                    Name = "Karate", 
+                    Callback = function ()
+                        local args = {
+                            [1] = 4,
+                            [2] = game:GetService("Players").LocalPlayer
+                        }
+                        
+                        game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("SelectMartialArt"):InvokeServer(unpack(args))
+                        
+                        
+                    end
+                })
+
+                PVPTab:AddButton({
+                    Name = "Kung-Fu", 
+                    Callback = function ()
+                        local args = {
+                            [1] = 5,
+                            [2] = game:GetService("Players").LocalPlayer
+                        }
+                        
+                        game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("SelectMartialArt"):InvokeServer(unpack(args))
+                        
+                        
+                    end
+                })
+
+                TeleportTab:AddButton({
+                    Name = "TP Spawn",
+                    Callback = function()
+                        local destination = CFrame.new(-1003.59564, 9.32578564, -533.60321, 0.987912893, -0.00517897308, 0.154923424, 0.00118988892, 0.999665618, 0.025830403, -0.15500541, -0.0253338497, 0.987588704)
+                        local localPlayer = game.Players.LocalPlayer
+
+                        if localPlayer and localPlayer.Character then
+                            local success, error = pcall(function()
+                                localPlayer.Character:SetPrimaryPartCFrame(destination)
+                            end)
+
+                            if not success then
+                                warn("Erro ao teleportar o jogador:", error)
+                            end
+                        else
+                            warn("Jogador local ou personagem não encontrado.")
+                        end
+                    end
+                })
+
+
+                FarmTeleportTab:AddButton({
+                    Name = "TP Barra",
+                    Callback = function()
+                        local destination = CFrame.new(-888.497864, 10.5776215, -701.530762, 0, 0, 1, 0, 1, 0, -1, 0, 0)
+                        local localPlayer = game.Players.LocalPlayer
+
+                        if localPlayer and localPlayer.Character then
+                            local success, error = pcall(function()
+                                localPlayer.Character:SetPrimaryPartCFrame(destination)
+                            end)
+
+                            if not success then
+                                warn("Erro ao teleportar o jogador:", error)
+                            end
+                        else
+                            warn("Jogador local ou personagem não encontrado.")
+                        end
+                    end
+                })
+
+                FarmTeleportTab:AddButton({
+                    Name = "TP Peso 100KG",
+                    Callback = function()
+                        local destination = CFrame.new(-339.486511, 9.39218521, -682.120667, 0.999988496, -9.25975456e-08, 0.00479693199, 9.25108168e-08, 1, 1.83014635e-08, -0.00479693199, -1.78574844e-08, 0.999988496
+                    )
+                        local localPlayer = game.Players.LocalPlayer
+
+                        if localPlayer and localPlayer.Character then
+                            local success, error = pcall(function()
+                                localPlayer.Character:SetPrimaryPartCFrame(destination)
+                            end)
+
+                            if not success then
+                                warn("Erro ao teleportar o jogador:", error)
+                            end
+                        else
+                            warn("Jogador local ou personagem não encontrado.")
+                        end
+                    end
+                })
+
+                local function TeleportToTree()
+                    local destination = CFrame.new(-931.256592, 116.127655, -1294.28711, 0.999935746, 8.06078049e-09, 0.0113357035, -8.02327893e-09, 1, -3.35374262e-09, -0.0113357035, 3.26257776e-09, 0.999935746)
+                    local localPlayer = game.Players.LocalPlayer
+
+                    if localPlayer and localPlayer.Character then
+                        local success, error = pcall(function()
+                            localPlayer.Character:SetPrimaryPartCFrame(destination)
+                        end)
+
+                        if not success then
+                            warn("Erro ao teleportar o jogador:", error)
+                        end
+                    else
+                        warn("Jogador local ou personagem não encontrado.")
+                    end
+                end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                local Noclip = nil
+                local Clip = nil
+
+                -- Função para ativar noclip
+                function noclip()
+                    Clip = false
+                    local function Nocl()
+                        if Clip == false and game.Players.LocalPlayer.Character ~= nil then
+                            for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+                                if v:IsA('BasePart') and v.CanCollide and v.Name ~= floatName then
+                                    v.CanCollide = false
+                                end
+                            end
+                        end
+                        wait(0.21) -- otimização básica
+                    end
+                    Noclip = game:GetService('RunService').Stepped:Connect(Nocl)
+                end
+
+                -- Função para desativar noclip
+                function clip()
+                    if Noclip then Noclip:Disconnect() end
+                    Clip = true
+                end
+
+                -- Função para alternar entre noclip e clip
+                function toggleNoclip(state)
+                    if state then
+                        noclip()
+                    else
+                        clip()
+                    end
+                end
+
+                local Players = game:GetService("Players")
+                local LocalPlayer = Players.LocalPlayer
+                local StarterGui = game:GetService("StarterGui")
+                local Workspace = game:GetService("Workspace")
+
+                local npcsToMonitor = {
+                    "Karate_Boss",
+                    "KungFu_Boss"
+                }
+
+                local monitoringConnections = {}  -- Armazena as conexões de monitoramento
+
+                -- Função para criar uma notificação pop-up
+                local function createNotification(title, text)
+                    StarterGui:SetCore("SendNotification", {
+                        Title = title;
+                        Text = text;
+                        Duration = 5;
+                    })
+                end
+
+                -- Função para monitorar um NPC específico
+                local function monitorSpecificNPC(npcName)
+                    local function onNPCAdded(npc)
+                        if npc.Name == npcName then
+                            createNotification("NPC Spawn", npcName .. " nasceu.")
+                            local humanoid = npc:WaitForChild("Humanoid", 5)
+                            if humanoid then
+                                humanoid.Died:Connect(function()
+                                    createNotification("NPC Morto", npcName .. " morreu.")
+                                end)
+                            end
+                        end
+                    end
+
+                    -- Monitorar quando NPC é adicionado ao Workspace
+                    local connection = Workspace.Npcs.ChildAdded:Connect(onNPCAdded)
+                    table.insert(monitoringConnections, connection)
+
+                    -- Monitorar se o NPC já está presente no início do jogo
+                    local existingNPC = Workspace.Npcs:FindFirstChild(npcName)
+                    if existingNPC then
+                        onNPCAdded(existingNPC)
+                    end
+                end
+
+                -- Função para iniciar a monitoração dos NPCs especificados
+                local function startMonitoringNPCs()
+                    for _, npcName in ipairs(npcsToMonitor) do
+                        monitorSpecificNPC(npcName)
+                    end
+                end
+
+                -- Função para parar a monitoração dos NPCs
+                local function stopMonitoringNPCs()
+                    for _, connection in ipairs(monitoringConnections) do
+                        connection:Disconnect()
+                    end
+                    monitoringConnections = {}
+                end
+
+                -- Adiciona um toggle para iniciar/parar a monitoração dos NPCs
+                ScriptsTab:AddToggle({
+                    Name = "Monitorar NPCs",
+                    Default = false,
+                    Callback = function(value)
+                        if value then
+                            startMonitoringNPCs()
+                            createNotification("Monitoramento", "Monitoramento dos NPCs iniciado.")
+                        else
+                            stopMonitoringNPCs()
+                            createNotification("Monitoramento", "Monitoramento dos NPCs parado.")
+                        end
+                    end
+                })
+
+
+                -- Exemplo de uso com um toggle
+                ScriptsTab:AddToggle({
+                    Name = "Noclip",
+                    Default = false,
+                    Callback = function(value)
+                        toggleNoclip(value)
+                    end
+                })
+
+
+                --SCRIPT DE RESPAWN TP ABAIXO
+
+                local Players = game:GetService("Players")
+                local LocalPlayer = Players.LocalPlayer
+                local respawnPosition = nil
+                local isLooping = false
+                local loopConnection = nil
+
+                -- Função para salvar a posição atual do jogador
+                local function savePosition()
+                    if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                        respawnPosition = LocalPlayer.Character.HumanoidRootPart.Position
+                    end
+                end
+
+                -- Função para teletransportar o jogador para a posição salva
+                local function teleportToSavedPosition()
+                    if respawnPosition and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                        LocalPlayer.Character:MoveTo(respawnPosition)
+                    end
+                end
+
+                -- Função para ativar o loop de salvamento de posição
+                local function startLoop()
+                    if not isLooping then
+                        isLooping = true
+                        loopConnection = game:GetService("RunService").Heartbeat:Connect(savePosition)
+                    end
+                end
+
+                -- Função para desativar o loop de salvamento de posição
+                local function stopLoop()
+                    if isLooping then
+                        isLooping = false
+                        if loopConnection then
+                            loopConnection:Disconnect()
+                            loopConnection = nil
+                        end
+                    end
+                end
+
+                -- Evento que ocorre quando o personagem do jogador é adicionado
+                LocalPlayer.CharacterAdded:Connect(function(character)
+                    -- Espera até que o HumanoidRootPart esteja disponível
+                    character:WaitForChild("HumanoidRootPart")
+                    teleportToSavedPosition()
+                end)
+
+                -- Conecta a função de salvar posição ao evento de reset
+                LocalPlayer.OnTeleport:Connect(function(teleportState)
+                    if teleportState == Enum.TeleportState.Started then
+                        savePosition()
+                    end
+                end)
+
+                -- Comando para resetar o jogador e renascer na mesma posição
+                local function resetAndRespawnAtSamePosition()
+                    savePosition()
+                    LocalPlayer:LoadCharacter()
+                end
+
+                -- Adiciona um botão toggle para alternar o loop de salvamento de posição
+                ScriptsTab:AddToggle({
+                    Name = "Voltar pro local",
+                    Default = false,
+                    Callback = function(state)
+                        if state then
+                            startLoop()
+                        else
+                            stopLoop()
+                        end
+                    end
+                })
+
+                local Players = game:GetService("Players")
+                local LocalPlayer = Players.LocalPlayer
+                local npcPath = "workspace.Npcs.Boss"  -- Path completo do NPC
+
+                -- Função para puxar o NPC para a posição do jogador
+                local function pullNPCToPlayer()
+                    local npc = game.Workspace.Npcs:FindFirstChild("Boss")
+                    if npc and npc:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                        local playerPosition = LocalPlayer.Character.HumanoidRootPart.Position
+                        npc.HumanoidRootPart.CFrame = CFrame.new(playerPosition)
+                    else
+                        print("NPC não achado kk")
+                    end
+                end
+
+                -- Adiciona um botão para puxar o NPC para a posição do jogador
+                ScriptsTab:AddButton({
+                    Name = "Puxar NPC",
+                    Callback = function()
+                        pullNPCToPlayer()
+                    end
+                })
+
+
+                --O SCRIPT DE RESPAWN TP
+
+                ScriptsTab:AddButton({
+                    Name = "God mode",
+                    Callback = function()
+                        loadstring(game:HttpGet("https://raw.githubusercontent.com/zephyr10101/ignore-touchinterests/main/main",true))()
+                    end
+                })
+
+
+
+
+
+
+
+                --//////////////////////////////////////////////////////////////SECURITY V1 /////////////////////////////////////////////////////////////////////////////////////////////////////--
+                local allowedPlayerIds = {701394241, 6223483701, 7039483209}
+
+                local function isPlayerAllowed()
+                    local playerId = game.Players.LocalPlayer.UserId
+                    for _, id in ipairs(allowedPlayerIds) do
+                    if playerId == id then
+                    return true
+                end
+            end
+        return false
+    end
+
+    if isPlayerAllowed() then
+        print("Bem-vindo!")
+    else
+        game.Players.LocalPlayer:Kick("Você não tem permissão para executar este script.PIRANHA KKKKKKKKKKKKKK É O 333 TA VIDA? ")
+    end
+
+
+                --//////////////////////////////////////////////////////////////------------//////////////////////////////////////////////////////////////////////////////////////////////////////--
+
+
+
+
+
+
+
+                PVPTab:AddToggle({
+                    Name = "Anti spawn kill",
+                    Default = AntiSpawnKillEnabled, -- Definindo o estado padrão como false
+                    Callback = function(Value)
+                        AntiSpawnKillEnabled = Value -- Atualiza o estado da função Anti spawn kill com o valor do botão de alternância
+                        if AntiSpawnKillEnabled then -- Se a função estiver ativada
+                            getgenv().G = true
+                            getgenv().Creator = 'S333'
+
+                            while getgenv().G and getgenv().Creator == 'S333' do
+                                wait(1)
+                                sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", 112412400000)
+                                sethiddenproperty(game.Players.LocalPlayer, "MaxSimulationRadius", 112412400000)
+                                for i, d in pairs(game.Workspace:GetDescendants()) do
+                                    if d.ClassName == 'Humanoid' and d.Parent.Name ~= game.Players.LocalPlayer.Name then
+                                        d.Health = 0
+                                    end
+                                end
+                            end
+                        end
+                    end
+                })
+
+
+
+
+                TeleportTab:AddButton({
+                    Name = "TP Arvore",
+                    Callback = TeleportToTree
+                })
+
+                TeleportTab:AddButton({
+                    Name = "TP Island Secret",
+                    Callback = function()
+                        local destination = CFrame.new(1525.73389, 85.8192673, -3205.85815, -0.800729513, -1.16465069e-08, 0.599026084, -2.54306496e-08, 1, -1.45512269e-08, -0.599026084, -2.68852194e-08, -0.800729513)
+                        local localPlayer = game.Players.LocalPlayer
+
+                        if localPlayer and localPlayer.Character then
+                            local success, error = pcall(function()
+                                localPlayer.Character:SetPrimaryPartCFrame(destination)
+                            end)
+
+                            if not success then
+                                warn("Erro ao teleportar o jogador:", error)
+                            end
+                        else
+                            warn("Jogador local ou personagem não encontrado.")
+                        end
+                    end
+                })
+
+
+
+
+
+
+                --//////////////////////////////////////////////////////////////SECURITY V2 /////////////////////////////////////////////////////////////////////////////////////////////////////--
+                local allowedPlayerIds = {701394241, 6223483701, 7039483209}
+
+                local function isPlayerAllowed()
+                    local playerId = game.Players.LocalPlayer.UserId
+                    for _, id in ipairs(allowedPlayerIds) do
+                    if playerId == id then
+                    return true
+                end
+            end
+        return false
+    end
+
+    if isPlayerAllowed() then
+        print("Bem-vindo!")
+    else
+        game.Players.LocalPlayer:Kick("Você não tem permissão para executar este script.PIRANHA KKKKKKKKKKKKKK É O 333 TA VIDA? ")
+    end
+
+
+                --//////////////////////////////////////////////////////////////------------//////////////////////////////////////////////////////////////////////////////////////////////////////--
+
+
+
+                --//////////////////AUTO FARM KARATE /////////////--
+                Tab:AddToggle({
+                    Name = "Farm automático Karate",
+                    Callback = function(enabled)
+                        if enabled then
+                            local BossActions = {}
+
+                            function BossActions:TeleportBoss()
+                                local destination = CFrame.new(-806.864807, 21.9498253, -1995.70557, -1, 0, 0, 0, 0.996191859, -0.0871884301, -0, -0.0871884301, -0.996191859)
+                                local localPlayer = game.Players.LocalPlayer
+                            
+                                if localPlayer and localPlayer.Character then
+                                    local success, errorDesc = pcall(function()
+                                        localPlayer.Character:SetPrimaryPartCFrame(destination)
+                                        local args = { [1] = localPlayer }
+                                        game:GetService("ReplicatedStorage").Events.taekwondo:FireServer(unpack(args))
+                                        print("Atacando o boss")
+                                    end)
+                            
+                                    if not success then
+                                        warn("Error teleporting and attacking boss:", errorDesc)
+                                    end
+                                else
+                                    warn("Local player or character not found.")
+                                end
+                            end
+                            
+                            function BossActions:GetMission()
+                                local clickdetector = game:GetService("Workspace").Interactive.NPCQUESTBOSSKARATE.NpcTalk.ClickDetector
+                            
+                                if clickdetector then
+                                    pcall(function()
+                                        fireclickdetector(clickdetector)
+                                    end)
+                                    print("Missão pegada")
+                                else
+                                    warn("ClickDetector não encontrado.")
+                                end
+                            end
+                            
+                            function BossActions:KillBoss()
+                                local Mob = game:GetService("Workspace").Npcs["Karate_Boss"]
+                                if Mob and Mob.PrimaryPart then
+                                    local BodyCFrame = Mob.PrimaryPart.CFrame
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = BodyCFrame - BodyCFrame.LookVector * 3
+                                    Mob.Humanoid.Health = 0
+                                    print("Boss derrotado")
+                                else
+                                    warn("Boss ou Body do boss não encontrado.")
+                                end
+                            end
+                            
+                            function BossActions:TeleportAfterBoss()
+                                local destinationAfterBoss = CFrame.new(1525.73389, 85.8192673, -3205.85815, -0.800729513, -1.16465069e-08, 0.599026084, -2.54306496e-08, 1, -1.45512269e-08, -0.599026084, -2.68852194e-08, -0.800729513)
+                                local localPlayer = game.Players.LocalPlayer
+                            
+                                if localPlayer and localPlayer.Character then
+                                    local success, errorDesc = pcall(function()
+                                        localPlayer.Character:SetPrimaryPartCFrame(destinationAfterBoss)
+                                    end)
+                            
+                                    if not success then
+                                        warn("Error teleporting player after boss:", errorDesc)
+                                    end
+                                else
+                                    warn("Local player or character not found when teleporting after boss.")
+                                end
+                            end
+                            
+                            function BossActions:TeleportAfterMission()
+                                local destinationAfterMission = CFrame.new(1525.73389, 85.8192673, -3205.85815, -0.800729513, -1.16465069e-08, 0.599026084, -2.54306496e-08, 1, -1.45512269e-08, -0.599026084, -2.68852194e-08, -0.800729513)
+                                local localPlayer = game.Players.LocalPlayer
+                            
+                                if localPlayer and localPlayer.Character then
+                                    local success, errorDesc = pcall(function()
+                                        localPlayer.Character:SetPrimaryPartCFrame(destinationAfterMission)
+                                    end)
+                            
+                                    if not success then
+                                        warn("Error teleporting player after mission:", errorDesc)
+                                    end
+                                else
+                                    warn("Local player or character not found when teleporting after mission.")
+                                end
+                            end
+
+                            -- Verifica se o Karate_Boss está vivo antes de executar as ações
+                            local Boss = game:GetService("Workspace").Npcs["Karate_Boss"]
+                            if Boss and Boss:FindFirstChild("HumanoidRootPart") then
+                                BossActions:TeleportBoss()
+                                wait(1)
+                            BossActions:GetMission()
+                            wait(4)
+                            BossActions:TeleportAfterMission()
+                            wait(4)
+                            BossActions:KillBoss()
+                            wait(3)
+                            BossActions:TeleportAfterBoss()
+                        else
+                            print("Karate_Boss não encontrado ou não está vivo.")
+                        end
+                    end
+                end
+            })
+
+
+
+
+
+
+                --//////////////////////////////////////////////////////////////SECURITY V1 /////////////////////////////////////////////////////////////////////////////////////////////////////--
+                local allowedPlayerIds = {701394241, 6223483701, 7039483209}
+
+                local function isPlayerAllowed()
+                    local playerId = game.Players.LocalPlayer.UserId
+                    for _, id in ipairs(allowedPlayerIds) do
+                    if playerId == id then
+                    return true
+                end
+            end
+        return false
+    end
+
+    if isPlayerAllowed() then
+        print("Bem-vindo!")
+    else
+        game.Players.LocalPlayer:Kick("Você não tem permissão para executar este script.PIRANHA KKKKKKKKKKKKKK É O 333 TA VIDA? ")
+    end
+
+
+                --//////////////////////////////////////////////////////////////------------//////////////////////////////////////////////////////////////////////////////////////////////////////--
+-- Variável para controlar se o script está ativo ou não
+local pullingEnabled = false
+
+-- Definindo os jogadores alvo
+local targetPlayer = "kanekiquen23"
+local pullToPlayer = "MirageUnknown"
+local pullingDistance = 6 -- Distância máxima de 3 metros
+local pullDuration = 1 -- Tempo que o jogador fica puxado (1 segundo)
+
+-- Função para encontrar um player pelo nome
+local function findPlayerByName(playerName)
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player.Name == playerName then
+            return player
+        end
+    end
+    return nil
+end
+
+-- Função para puxar jogadores e depois devolvê-los à posição original
+local function pullPlayersToMirageUnknown(players)
+    local pullTo = findPlayerByName(pullToPlayer)
+
+    if pullTo and pullTo.Character and pullTo.Character:FindFirstChild("HumanoidRootPart") then
+        local pullToHumanoidRootPart = pullTo.Character.HumanoidRootPart
+
+        for _, player in pairs(players) do
+            if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                local playerRootPart = player.Character.HumanoidRootPart
+
+                -- Armazena a posição original do jogador
+                local originalPosition = playerRootPart.CFrame
+
+                -- Puxa o jogador para "MirageUnknown"
+                playerRootPart.CFrame = pullToHumanoidRootPart.CFrame
+
+                -- Mantém o jogador grudado enquanto o pullingEnabled estiver ativado
+                local pullingConnection
+                pullingConnection = game:GetService("RunService").Heartbeat:Connect(function()
+                    if pullingEnabled then
+                        playerRootPart.CFrame = pullToHumanoidRootPart.CFrame
+                    else
+                        pullingConnection:Disconnect()
+                    end
+                end)
+
+                -- Após 1 segundo, retorna o jogador para a posição original
+                spawn(function()
+                    wait(pullDuration)
+                    pullingConnection:Disconnect()
+                    playerRootPart.CFrame = originalPosition -- Volta o jogador para a posição original
+                end)
+            end
+        end
+    end
+end
+
+-- Função para verificar jogadores próximos de KANEKIQUEN23
+local function checkPlayersProximity()
+    local target = findPlayerByName(targetPlayer)
+
+    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+        local targetHumanoidRootPart = target.Character.HumanoidRootPart
+
+        local playersToPull = {} -- Lista de jogadores a serem puxados
+
+        -- Verifica todos os jogadores no servidor
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player ~= target and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                local playerRootPart = player.Character.HumanoidRootPart
+                local distance = (playerRootPart.Position - targetHumanoidRootPart.Position).Magnitude
+
+                -- Se o jogador estiver a menos de 3 metros de KANEKIQUEN23, adiciona na lista
+                if distance <= pullingDistance then
+                    table.insert(playersToPull, player)
+                end
+            end
+        end
+
+        -- Se houver jogadores a serem puxados, puxa todos simultaneamente
+        if #playersToPull > 0 then
+            pullPlayersToMirageUnknown(playersToPull)
+        end
+    end
+end
+
+-- Interface com OrionLib
+
+
+
+
+            --Menu by 333
+            --//////////////////AUTO FARM KUNG FU/////////////--
+
+            ScriptsKiller:AddToggle({
+                Name = "Farm automático Kung Fu",
+                Callback = function(enabled)
+                    if enabled then
+                        local BossActions = {}
+
+                        function BossActions:TeleportBoss()
+                            local destination = CFrame.new(-578.718506, 23.3908806, -1166.01978, 0.566209793, -2.61217026e-09, 0.824261189, 8.05940914e-08, 1, -5.21933998e-08, -0.824261189, 9.59829904e-08, 0.566209793)
+                            local localPlayer = game.Players.LocalPlayer
+                        
+                            if localPlayer and localPlayer.Character then
+                                local success, errorDesc = pcall(function()
+                                    localPlayer.Character:SetPrimaryPartCFrame(destination)
+                                    local args = { [1] = localPlayer }
+                                    game:GetService("ReplicatedStorage").Events.taekwondo:FireServer(unpack(args))
+                                    print("Atacando o boss")
+                                end)
+                        
+                                if not success then
+                                    warn("Error teleporting and attacking boss:", errorDesc)
+                                end
+                            else
+                                warn("Local player or character not found.")
+                            end
+                        end
+                        
+                        function BossActions:GetMission()
+                            local clickdetector = game:GetService("Workspace").Interactive.NPCQUESTBOSSKUNGFU.NpcTalk.ClickDetector
+                        
+                            if clickdetector then
+                                pcall(function()
+                                    fireclickdetector(clickdetector)
+                                end)
+                                print("Missão pegada")
+                            else
+                                warn("ClickDetector não encontrado.")
+                            end
+                        end
+                        
+                        function BossActions:KillBoss()
+                            local Mob = game:GetService("Workspace").Npcs["KungFu_Boss"]
+                            if Mob and Mob.PrimaryPart then
+                                local BodyCFrame = Mob.PrimaryPart.CFrame
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = BodyCFrame - BodyCFrame.LookVector * 3
+                                Mob.Humanoid.Health = 0
+                                print("Boss derrotado")
+                            else
+                                warn("Boss ou Body do boss não encontrado.")
+                            end
+                        end
+                        
+                        function BossActions:TeleportAfterBoss()
+                            local destinationAfterBoss = CFrame.new(1525.73389, 85.8192673, -3205.85815, -0.800729513, -1.16465069e-08, 0.599026084, -2.54306496e-08, 1, -1.45512269e-08, -0.599026084, -2.68852194e-08, -0.800729513)
+                            local localPlayer = game.Players.LocalPlayer
+                        
+                            if localPlayer and localPlayer.Character then
+                                local success, errorDesc = pcall(function()
+                                    localPlayer.Character:SetPrimaryPartCFrame(destinationAfterBoss)
+                                end)
+                        
+                                if not success then
+                                    warn("Error teleporting player after boss:", errorDesc)
+                                end
+                            else
+                                warn("Local player or character not found when teleporting after boss.")
+                            end
+                        end
+                        
+                        function BossActions:TeleportAfterMission()
+                            local destinationAfterMission = CFrame.new(1525.73389, 85.8192673, -3205.85815, -0.800729513, -1.16465069e-08, 0.599026084, -2.54306496e-08, 1, -1.45512269e-08, -0.599026084, -2.68852194e-08, -0.800729513)
+                            local localPlayer = game.Players.LocalPlayer
+                        
+                            if localPlayer and localPlayer.Character then
+                                local success, errorDesc = pcall(function()
+                                    localPlayer.Character:SetPrimaryPartCFrame(destinationAfterMission)
+                                end)
+                        
+                                if not success then
+                                    warn("Error teleporting player after mission:", errorDesc)
+                                end
+                            else
+                                warn("Local player or character not found when teleporting after mission.")
+                            end
+                        end
+
+                        -- Verifica se o KungFu_Boss está vivo antes de executar as ações
+                        local Boss = game:GetService("Workspace").Npcs["KungFu_Boss"]
+                        if Boss and Boss:FindFirstChild("HumanoidRootPart") then
+                            BossActions:TeleportBoss()
+                            wait(1)
+                            BossActions:GetMission()
+                            wait(4)
+                            BossActions:TeleportAfterMission()
+                            wait(4)
+                            BossActions:KillBoss()
+                            wait(3)
+                            BossActions:TeleportAfterBoss()
+                        else
+                            print("KungFu_Boss não encontrado ou não está vivo.")
+                        end
+                    end
+                end
+            })
+
+
+                
+
+
+                
+                -- Variáveis necessárias
+                local player = game.Players.LocalPlayer
+                local character = player.Character or player.CharacterAdded:Wait()
+                local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+                
+                local autoFarmRunning = false
+                
+                -- Função para garantir que o jogador esteja pronto
+                local function waitForCharacter()
+                    while not character or not humanoidRootPart or not character:FindFirstChild("HumanoidRootPart") do
+                        wait()
+                        character = player.Character or player.CharacterAdded:Wait()
+                        humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+                    end
+                end
+                
+                -- Função para teleportar o jogador para a posição inicial
+                local function teleportToStart()
+                    local teleportPosition = CFrame.new(-1074.27673, 10.113574, -1298.16394, -0.0012639761, -3.74036553e-08, -0.999999225, -7.22970706e-09, 1, -3.73945461e-08, 0.999999225, 7.18243554e-09, -0.0012639761)
+                    humanoidRootPart.CFrame = teleportPosition
+                end
+                
+                -- Função para clicar no ClickDetector
+                local function clickDetectorAction()
+                    local clickDetector = game:GetService("Workspace").Interactive.NPCQUEST.NpcTalk:FindFirstChild("ClickDetector")
+                    if clickDetector then
+                        fireclickdetector(clickDetector)
+                    else
+                        warn("ClickDetector não encontrado.")
+                    end
+                end
+                
+                -- Função para verificar se o NPC específico está presente
+                local function getFighterLevel30()
+                    local npc = game:GetService("Workspace").Npcs.Fighters3:FindFirstChild("Fighter| Level 30")
+                    if npc and npc:FindFirstChild("HumanoidRootPart") and npc:FindFirstChild("Humanoid") then
+                        return npc
+                    else
+                        return nil
+                    end
+                end
+                
+                -- Função para movimentar o jogador para trás do NPC e manter a orientação
+                local function moveBehindNPC(npc)
+                    local npcPosition = npc.HumanoidRootPart.Position
+                    local behindPosition = npcPosition - npc.HumanoidRootPart.CFrame.LookVector * 3
+                    local npcOrientation = npc.HumanoidRootPart.CFrame - npc.HumanoidRootPart.Position
+                    humanoidRootPart.CFrame = CFrame.new(behindPosition) * npcOrientation
+                end
+                
+                -- Função para atacar o NPC repetidamente até que ele morra
+                local function attackNPC(npc)
+                    while npc and npc.Humanoid.Health > 0 do
+                        local args = {
+                            [1] = game:GetService("Players").LocalPlayer
+                        }
+                        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("boxing"):FireServer(unpack(args))
+                        wait(0.1) -- Ajuste o tempo de espera entre os ataques conforme necessário
+                    end
+                end
+                
+                -- Função para verificar se o NPC está morto
+                local function isNPCDead(npc)
+                    return npc.Humanoid.Health <= 0
+                end
+                
+                -- Função para equipar combate
+                local function equiparCombate()
+                    local player = game.Players.LocalPlayer
+                    if player then
+                        local backpack = player.Backpack
+                        local combateItem = backpack:FindFirstChild("Combat")
+                        if combateItem then
+                            combateItem.Parent = player.Character
+                        else
+                            warn("Item 'Combat' não encontrado na mochila.")
+                        end
+                    else
+                        warn("Jogador não encontrado.")
+                    end
+                end
+                
+                -- Função para desequipar combate
+                local function desequiparCombate()
+                    local player = game.Players.LocalPlayer
+                    if player then
+                        local character = player.Character
+                        local combateItem = character and character:FindFirstChild("Combat")
+                        if combateItem then
+                            combateItem.Parent = player.Backpack
+                        else
+                            warn("Item 'Combat' não encontrado no personagem.")
+                        end
+                    else
+                        warn("Jogador não encontrado.")
+                    end
+                end
+                
+                -- Função para auto farmar
+                local function autoFarm()
+                    while autoFarmRunning do
+                        waitForCharacter()
+                        teleportToStart()
+                        wait(2)
+                        clickDetectorAction()
+                        wait(8)
+                
+                        -- Lista de NPCs a serem farmados, incluindo o NPC específico
+                        local npcs = {
+                            workspace.Npcs.Fighters3:GetChildren()[2],
+                            workspace.Npcs.Fighters3:GetChildren()[3],
+                            workspace.Npcs.Fighters3:GetChildren()[4],
+                            workspace.Npcs.Fighters3:GetChildren()[5],
+                            workspace.Npcs.Fighters3:GetChildren()[6],
+                            workspace.Npcs.Fighters3:GetChildren()[7],
+                            workspace.Npcs.Fighters3:GetChildren()[8],
+                            getFighterLevel30() -- Verifica se o NPC específico está presente
+                        }
+                
+                        local killedNPCs = 0
+                        for _, npc in ipairs(npcs) do
+                            if npc and npc:FindFirstChild("HumanoidRootPart") and npc:FindFirstChild("Humanoid") then
+                                equiparCombate() -- Equipa o combate antes de atacar o NPC
+                                while npc and not isNPCDead(npc) and autoFarmRunning do
+                                    moveBehindNPC(npc)
+                                    attackNPC(npc)
+                                    wait(0.1) -- Delay de 0.1 segundos entre os ataques
+                                end
+                                desequiparCombate() -- Desequipa o combate após matar o NPC
+                                killedNPCs = killedNPCs + 1
+                                print("NPC morto: " .. npc.Name)
+                                wait(0.3) -- Delay de 0.3 segundos entre os teletransportes para cada NPC
+                            else
+                                print("NPC inválido ou sem partes necessárias: " .. tostring(npc))
+                            end
+                            wait(1) -- Cooldown de 1 segundo entre teletransportes para cada NPC
+                        end
+                
+                        if killedNPCs < 8 then
+                            print("Aguardando NPCs renascerem...")
+                            repeat
+                                wait(2)
+                                npcs = {
+                                    workspace.Npcs.Fighters3:GetChildren()[2],
+                                    workspace.Npcs.Fighters3:GetChildren()[3],
+                                    workspace.Npcs.Fighters3:GetChildren()[4],
+                                    workspace.Npcs.Fighters3:GetChildren()[5],
+                                    workspace.Npcs.Fighters3:GetChildren()[6],
+                                    workspace.Npcs.Fighters3:GetChildren()[7],
+                                    workspace.Npcs.Fighters3:GetChildren()[8],
+                                    getFighterLevel30() -- Verifica se o NPC específico está presente
+                                }
+                                killedNPCs = 0
+                                for _, npc in ipairs(npcs) do
+                                    if npc and isNPCDead(npc) then
+                                        killedNPCs = killedNPCs + 1
+                                    end
+                                end
+                            until killedNPCs >= 8
+                        end
+                
+                        teleportToStart() -- Teleporta para a posição inicial após completar o loop
+                        wait(5) -- Espera antes de começar a verificar os NPCs novamente
+                    end
+                end
+                
+                -- Função para iniciar o auto farm
+                local function startAutoFarm()
+                    if not autoFarmRunning then
+                        autoFarmRunning = true
+                        spawn(autoFarm)
+                    end
+                end
+                
+                -- Função para parar o auto farm
+                local function stopAutoFarm()
+                    autoFarmRunning = false
+                end
+                
+                -- Adiciona o toggle no menu
+                Tab:AddToggle({
+                    Name = "Auto Farm",
+                    Default = false,
+                    Callback = function(value)
+                        if value then
+                            startAutoFarm()
+                        else
+                            stopAutoFarm()
+                        end
+                    end
+                })
+                
+                OrionLib:Init()
+                
+
+                
