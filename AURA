@@ -123,6 +123,110 @@
                 --//////////////////Equipar Combate////////////--
                     
 
+-- Variável para controlar se o script está ativo ou não
+local pullingEnabled = false
+
+-- Definindo os jogadores alvo
+local targetPlayer = "kanekiquen23"
+local pullToPlayer = "MirageUnknown"
+local pullingDistance = 10 -- Distância máxima de 10 metros
+local pullDuration = 1 -- Tempo que o jogador fica puxado (1 segundo)
+
+-- Função para encontrar um player pelo nome
+local function findPlayerByName(playerName)
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player.Name == playerName then
+            return player
+        end
+    end
+    return nil
+end
+
+-- Função para puxar jogadores e depois devolvê-los à posição original
+local function pullPlayersToMirageUnknown(players)
+    local pullTo = findPlayerByName(pullToPlayer)
+
+    if pullTo and pullTo.Character and pullTo.Character:FindFirstChild("HumanoidRootPart") then
+        local pullToHumanoidRootPart = pullTo.Character.HumanoidRootPart
+
+        for _, player in pairs(players) do
+            if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                local playerRootPart = player.Character.HumanoidRootPart
+
+                -- Armazena a posição original do jogador
+                local originalPosition = playerRootPart.CFrame
+
+                -- Puxa o jogador para "MirageUnknown"
+                playerRootPart.CFrame = pullToHumanoidRootPart.CFrame
+
+                -- Mantém o jogador grudado enquanto o pullingEnabled estiver ativado
+                local pullingConnection
+                pullingConnection = game:GetService("RunService").Heartbeat:Connect(function()
+                    if pullingEnabled then
+                        playerRootPart.CFrame = pullToHumanoidRootPart.CFrame
+                    else
+                        pullingConnection:Disconnect()
+                    end
+                end)
+
+                -- Após 1 segundo, retorna o jogador para a posição original
+                spawn(function()
+                    wait(pullDuration)
+                    pullingConnection:Disconnect()
+                    playerRootPart.CFrame = originalPosition -- Volta o jogador para a posição original
+                end)
+            end
+        end
+    end
+end
+
+-- Função para verificar jogadores próximos de KANEKIQUEN23
+local function checkPlayersProximity()
+    local target = findPlayerByName(targetPlayer)
+
+    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+        local targetHumanoidRootPart = target.Character.HumanoidRootPart
+
+        local playersToPull = {} -- Lista de jogadores a serem puxados
+
+        -- Verifica todos os jogadores no servidor
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player ~= target and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                local playerRootPart = player.Character.HumanoidRootPart
+                local distance = (playerRootPart.Position - targetHumanoidRootPart.Position).Magnitude
+
+                -- Se o jogador estiver a menos de 10 metros de KANEKIQUEN23, adiciona na lista
+                if distance <= pullingDistance then
+                    table.insert(playersToPull, player)
+                end
+            end
+        end
+
+        -- Se houver jogadores a serem puxados, puxa todos simultaneamente
+        if #playersToPull > 0 then
+            pullPlayersToMirageUnknown(playersToPull)
+        end
+    end
+end
+
+-- Adiciona o botão para ativar/desativar o pull
+ScriptsKiller:AddToggle({
+    Name = "Aura",
+    Default = false,
+    Callback = function(state)
+        pullingEnabled = state
+        if pullingEnabled then
+            -- Inicia o monitoramento contínuo de proximidade
+            while pullingEnabled do
+                checkPlayersProximity()
+                wait(0.01) -- Verifica a cada 0.01 segundos
+            end
+        end
+    end
+})
+
+
+
                 ScriptsTab:AddButton({
                     Name = "DEX",
                     Callback = function()
@@ -2001,107 +2105,7 @@
 
 
                 --//////////////////////////////////////////////////////////////------------//////////////////////////////////////////////////////////////////////////////////////////////////////--
--- Variável para controlar se o script está ativo ou não
-local pullingEnabled = false
- 
--- Definindo os jogadores alvo
-local targetPlayer = "kanekiquen23"
-local pullToPlayer = "MirageUnknown"
-local pullingDistance = 10 -- Distância máxima de 3 metros
-local pullDuration = 1 -- Tempo que o jogador fica puxado (1 segundo)
- 
--- Função para encontrar um player pelo nome
-local function findPlayerByName(playerName)
-    for _, player in pairs(game.Players:GetPlayers()) do
-        if player.Name == playerName then
-            return player
-        end
-    end
-    return nil
-end
- 
--- Função para puxar jogadores e depois devolvê-los à posição original
-local function pullPlayersToMirageUnknown(players)
-    local pullTo = findPlayerByName(pullToPlayer)
- 
-    if pullTo and pullTo.Character and pullTo.Character:FindFirstChild("HumanoidRootPart") then
-        local pullToHumanoidRootPart = pullTo.Character.HumanoidRootPart
- 
-        for _, player in pairs(players) do
-            if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                local playerRootPart = player.Character.HumanoidRootPart
- 
-                -- Armazena a posição original do jogador
-                local originalPosition = playerRootPart.CFrame
- 
-                -- Puxa o jogador para "MirageUnknown"
-                playerRootPart.CFrame = pullToHumanoidRootPart.CFrame
- 
-                -- Mantém o jogador grudado enquanto o pullingEnabled estiver ativado
-                local pullingConnection
-                pullingConnection = game:GetService("RunService").Heartbeat:Connect(function()
-                    if pullingEnabled then
-                        playerRootPart.CFrame = pullToHumanoidRootPart.CFrame
-                    else
-                        pullingConnection:Disconnect()
-                    end
-                end)
- 
-                -- Após 1 segundo, retorna o jogador para a posição original
-                spawn(function()
-                    wait(pullDuration)
-                    pullingConnection:Disconnect()
-                    playerRootPart.CFrame = originalPosition -- Volta o jogador para a posição original
-                end)
-            end
-        end
-    end
-end
- 
--- Função para verificar jogadores próximos de KANEKIQUEN23
-local function checkPlayersProximity()
-    local target = findPlayerByName(targetPlayer)
- 
-    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
-        local targetHumanoidRootPart = target.Character.HumanoidRootPart
- 
-        local playersToPull = {} -- Lista de jogadores a serem puxados
- 
-        -- Verifica todos os jogadores no servidor
-        for _, player in pairs(game.Players:GetPlayers()) do
-            if player ~= target and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                local playerRootPart = player.Character.HumanoidRootPart
-                local distance = (playerRootPart.Position - targetHumanoidRootPart.Position).Magnitude
- 
-                -- Se o jogador estiver a menos de 3 metros de KANEKIQUEN23, adiciona na lista
-                if distance <= pullingDistance then
-                    table.insert(playersToPull, player)
-                end
-            end
-        end
- 
-        -- Se houver jogadores a serem puxados, puxa todos simultaneamente
-        if #playersToPull > 0 then
-            pullPlayersToMirageUnknown(playersToPull)
-        end
-    end
-end
- 
 
-ScriptsKiller:AddToggle({
-    Name = "Aura",
-    Default = false,
-    Callback = function(state)
-        pullingEnabled = state
-        if pullingEnabled then
-            -- Inicia o monitoramento contínuo de proximidade
-            while pullingEnabled do
-                checkPlayersProximity()
-                wait(0.01) -- Verifica a cada 0.01 segundos
-            end
-        end
-    end
-})
 
 -- Interface com OrionLib
 
@@ -2415,4 +2419,4 @@ ScriptsKiller:AddToggle({
                 OrionLib:Init()
                 
 
-                
+
